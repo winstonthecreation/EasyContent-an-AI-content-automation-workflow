@@ -1,0 +1,1515 @@
+{
+  "name": "AI-Powered Short Form Video Automation for Creators",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# Phase 1: Research",
+        "height": 512,
+        "width": 2496,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2a59cbbd-4211-4b30-96e3-9910574fdcbc",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "videoPlayCount",
+              "order": "descending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        816,
+        128
+      ],
+      "id": "15781e08-31ad-46f8-bcd3-68b9e7c75831",
+      "name": "Sort by Views"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.1",
+          "mode": "list",
+          "cachedResultName": "gpt-5.1"
+        },
+        "builtInTools": {
+          "webSearch": {
+            "searchContextSize": "medium"
+          }
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        384,
+        1040
+      ],
+      "id": "b59b917d-d1d8-44b0-b080-71c2162293a7",
+      "name": "GPT 5.1",
+      "credentials": {
+        "openAiApi": {
+          "id": "U9sRRNArK5XGzbCv",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appdBaFwp8NsgZd4t",
+          "mode": "list",
+          "cachedResultName": "Short Form Video Automation",
+          "cachedResultUrl": "https://airtable.com/appdBaFwp8NsgZd4t"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblJglltF4FSCZat9",
+          "mode": "list",
+          "cachedResultName": "Script",
+          "cachedResultUrl": "https://airtable.com/appdBaFwp8NsgZd4t/tblJglltF4FSCZat9"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Analysis": "={{ $('Analysis Agent').item.json.output }}",
+            "Template": "={{ $('Template Agent').item.json.output }}",
+            "Video Link": "={{ $('Sort by Views').item.json.url }}",
+            "Name": "={{ $('Sort by Views').item.json.ownerUsername }}",
+            "Views": "={{ $('Sort by Views').item.json.videoPlayCount }}",
+            "Transcript": "={{ $('Transcribe Audio').item.json.text }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Topic",
+              "displayName": "Topic",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Video Link",
+              "displayName": "Video Link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Views",
+              "displayName": "Views",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Transcript",
+              "displayName": "Transcript",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Analysis",
+              "displayName": "Analysis",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Template",
+              "displayName": "Template",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Script",
+              "displayName": "Script",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Caption",
+              "displayName": "Caption",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Todo",
+                  "value": "Todo"
+                },
+                {
+                  "name": "Done",
+                  "value": "Done"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Last Modified",
+              "displayName": "Last Modified",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        2288,
+        128
+      ],
+      "id": "f851a7e5-afb5-4587-bc8d-671349aa9606",
+      "name": "Create Records",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "X8jeEyY5l3ko8fbk",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "responsesApiEnabled": false,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1744,
+        368
+      ],
+      "id": "007cab4c-3712-4fcf-9fce-aa41cc177fab",
+      "name": "GPT 5 mini",
+      "credentials": {
+        "openAiApi": {
+          "id": "Md5QUsYI6NcyH08c",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Topic: {{ $('Scripting Trigger').item.json.fields.Topic }}\nAnalysis: {{ $('Scripting Trigger').item.json.fields.Analysis }}\nTemplate: {{ $('Scripting Trigger').item.json.fields.Template }}",
+        "options": {
+          "systemMessage": "=# Overview\nYou are an expert short-form video scriptwriter specializing in educational content for Instagram Reels, TikTok, and YouTube Shorts. Your scripts are engaging, concise, and designed to maximize watch time and engagement.\n\n# How to Handle User Input\nThe user will provide three inputs:\n1. Topic — The subject to research. Use this to perform a web search and gather fresh, relevant insights before writing anything.\n2. Analysis — A summary or breakdown from an inspired transcript. Treat this as context and key talking points to weave into the script.\n3. Template — A reference script structure from the inspired transcript. Use it as a loose guide for pacing, flow, and format. Do not copy it rigidly. Adapt and reshape it based on what the Topic, Web Search, and Analysis actually call for.\n\nYour job is to synthesize all three into one original, high-energy Instagram Reels script in a talking-head style.\n\n# Writing Process\n1. Search the web using the Topic to pull in current, relevant data or angles.\n2. Review the Analysis the user provided and identify the core insight or story.\n3. Glance at the Template for structural rhythm, but let the Topic, Web Search, and Analysis drive the actual content and flow.\n4. Write the script.\n\n# Core Principles\n- Hook within 1 second: Start with a pattern interrupt, bold statement, or intriguing question.\n- Fast-paced delivery: Keep sentences short and punchy. No fluff.\n- Visual storytelling: Write with visuals in mind. Suggest shots, text overlays, or transitions where relevant.\n- Value-driven: Every line should teach something or move the story forward.\n- Conversational tone: Write like you're talking to a friend, not lecturing.\n- Strong payoff: End with a memorable takeaway, twist, or callback to the hook.\n- Talking-head style: The script should be written as if one person is speaking directly to camera the entire time. Keep it personal and direct.\n\n# Script Structure Guidelines\n- Duration: Aim for 30-90 seconds (75-200 words typically).\n- Hook: 1-3 seconds that grab attention immediately.\n- Body: Deliver the core insight or story with momentum.\n- Payoff: Satisfying conclusion or \"aha\" moment.\n- CTA: Natural transition to call-to-action when appropriate.\n\n# Output Format\nProvide the script in a clean, readable format with:\n- Structure your response with clear markdown headings, but do not use bold text markdown or italic markdown\n- Hook, Body, and CTA clearly marked\n\n# Quality Checklist\nBefore finalizing, ensure the script:\n- Hooks in the first second\n- Maintains energy and pacing throughout\n- Delivers genuine value or insight\n- Feels natural, not scripted\n- Ends with a clear payoff or takeaway\n- Includes CTA only when contextually appropriate\n- Reflects current info from the web search, not just the template\n- Feels like an original script, not a rewrite of the template"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        480,
+        848
+      ],
+      "id": "4ee12c62-a87a-443d-b6f3-c7cc91a6f4aa",
+      "name": "Scripting Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Script: {{ $json.output }}",
+        "options": {
+          "systemMessage": "=# Overview\nYou are an expert social media caption writer for educational content. Create compelling captions that summarize video scripts and drive action.\n\n## Your Task\nWrite a caption with these elements:\n\n### Hook (First Line)\nCreate a NEW hook that's different from the script but covers the same topic. Make it grab attention in the feed.\n\nExample:\n- Script hook: \"99% of people don't know this AI trick...\"\n- Caption hook: \"I wasted 6 months before learning this AI shortcut.\"\n\n### Body\nSummarize the script's main insights in 2-4 sentences or bullet points. Highlight the key takeaway.\n\n### CTA\nThe CTA will be the same as the script.\n\n### Hashtags\nInclude 5 relevant hashtags (mix of popular and niche).\n\n## Guidelines\n- Length: 50-200 words\n- Formatting: Use line breaks for readability. No em dashes or en dashes\n- Markdowns: DO NOT use bold text markdown or italic markdown\n- Tone: Conversational and authentic\n- Hook must be different: New angle on same topic, works as feed text\n\n## Output Format\n\n[NEW HOOK - different from script]\n\n[Body summary of key insights]\n\n[CTA]\n\n#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        944,
+        848
+      ],
+      "id": "16701e87-d1d5-4c1e-86ef-b074bdd18ead",
+      "name": "Caption Agent"
+    },
+    {
+      "parameters": {
+        "content": "#  Phase 2: Scripting",
+        "height": 592,
+        "width": 1568,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        656
+      ],
+      "typeVersion": 1,
+      "id": "f293b22c-4ca3-4f9c-8cc9-b2f54a04d7f2",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Transcript: {{ $('Transcribe Audio').item.json.text }}",
+        "options": {
+          "systemMessage": "=# Overview\nYou are an expert social media content strategist specializing in creating reusable script templates for short-form video content.\n\n## Your Task\nWhen a user provides a successful reel transcript for analysis, your job is to extract the underlying structure and create a fill-in-the-blank template that they can reuse with different topics.\n\n## Template Creation Rules\n1. Identify the pattern - Recognize the repeatable structure, not the specific content\n2. Use placeholders - Replace specific details with clear, descriptive brackets like [YOUR TOPIC], [SPECIFIC PROBLEM], [BENEFIT #1]\n3. Preserve the formula - Keep the exact phrasing that makes the hook/transitions work\n4. Be specific with instructions - Make placeholders self-explanatory so anyone can fill them in\n5. Output ONLY the template - No explanations, no commentary, no additional text\n\n## Template Format\nStructure your template exactly as the original script flows, with:\n- Clear placeholders in [BRACKETS]\n- Original transition words and phrases preserved\n- Line breaks matching the script's pacing\n- Any critical formatting (pauses, emphasis) maintained\n- Ignore sound effects, background or instrumental music\n\n## Example\nIf given: \"I spent $10,000 learning video editing. Here's what actually worked. \n\nFirst, master cuts. \n\nSecond, learn color grading. \n\nThird, sound design is everything.\"\n\nYou output:\n\"I spent [AMOUNT] learning [SKILL/TOPIC]. Here's what actually worked.\n\nFirst, [TIP #1].\n\nSecond, [TIP #2].\n\nThird, [TIP #3].\"\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        1920,
+        128
+      ],
+      "id": "209d1142-94f3-47b0-b017-10db297b8a9d",
+      "name": "Template Agent"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "authentication": "airtableTokenApi",
+        "baseId": {
+          "__rl": true,
+          "value": "appdBaFwp8NsgZd4t",
+          "mode": "id"
+        },
+        "tableId": {
+          "__rl": true,
+          "value": "tblJglltF4FSCZat9",
+          "mode": "id"
+        },
+        "triggerField": "=Last Modified",
+        "additionalFields": {
+          "formula": "{Status} = \"Todo\""
+        }
+      },
+      "type": "n8n-nodes-base.airtableTrigger",
+      "typeVersion": 1,
+      "position": [
+        96,
+        848
+      ],
+      "id": "1c5033f9-763e-4e04-a8c3-92c027113970",
+      "name": "Scripting Trigger",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "X8jeEyY5l3ko8fbk",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Transcript: {{ $json.text }}",
+        "options": {
+          "systemMessage": "=# Overview\nYou are an expert social media content analyst specializing in short-form video scripts (reels, TikToks, YouTube Shorts). Your role is to help users understand what makes their video scripts effective.\n\n## Your Analysis Framework\nWhen analyzing a reel transcript, provide:\n\n1. Topic\nIdentify the main subject or theme of the video in one clear sentence.\n\n2. Hook\nExtract the opening line or concept that grabs attention. Explain what type of hook it is (e.g., curiosity gap, bold statement, question, pattern interrupt, relatable problem).\n\n3. Structure\nBreak down the video's flow and organization:\n- Opening (hook)\n- Body (main content points)\n- Closing (CTA or payoff)\n\nNote any specific patterns like problem-solution, storytelling arc, list format, or tutorial structure.\n\n4. Why It Worked\nProvide actionable insights on the script's effectiveness:\n- What psychological triggers were used\n- How it maintains attention\n- Why the pacing works\n- How it delivers value\n- What emotions it evokes\n- Why viewers would watch till the end\n\n## Your Communication Style\n\n- Be concise and actionable\n- Use bullet points for clarity\n- Provide specific examples from the script\n- Offer practical takeaways the user can apply to future scripts\n- Stay objective and analytical\n- Plain text, no timestamps\n- No commentary, just content breakdown\n- Start immediately with the breakdown\n\n## Example Output Format\n\nTopic: [One sentence summary]\n\nHook: \"[Quote the hook]\"\nThis uses a [hook type] to grab attention by [explanation].\n\nStructure:\n- Opening: [description]\n- Body: [key points]\n- Closing: [how it ends]\n\nWhy It Worked:\n[2-4 key insights with explanations]"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        1568,
+        128
+      ],
+      "id": "95cf0b4b-ad52-42cd-bca9-73a031e86309",
+      "name": "Analysis Agent"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "authentication": "airtableTokenApi",
+        "baseId": {
+          "__rl": true,
+          "value": "appdBaFwp8NsgZd4t",
+          "mode": "id"
+        },
+        "tableId": {
+          "__rl": true,
+          "value": "tblv6ajUZilRCLcSn",
+          "mode": "id"
+        },
+        "triggerField": "Last Modified",
+        "additionalFields": {
+          "formula": "{Status} = \"Todo\""
+        }
+      },
+      "type": "n8n-nodes-base.airtableTrigger",
+      "typeVersion": 1,
+      "position": [
+        96,
+        128
+      ],
+      "id": "861474bc-edb3-4945-8427-18a510acdc06",
+      "name": "Research Trigger",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "X8jeEyY5l3ko8fbk",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Phase 3: Video Editing",
+        "height": 912,
+        "width": 3248,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        1392
+      ],
+      "id": "696247d1-975f-4b01-918d-3b3da79509a1",
+      "name": "Sticky Note8",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://no-code-architects-toolkit-1097740561397.us-central1.run.app/v1/media/silence",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"media_url\": \"{{ $(\"Editing Trigger\").item.json.fields.Footage.replace(\"www.dropbox.com\", \"dl.dropboxusercontent.com\").replace(\"dl=0\", \"dl=1\") }}\",\n   \"duration\": 0.5\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        576,
+        1760
+      ],
+      "id": "0856042e-872d-4e41-b58f-86a3dba40b46",
+      "name": "Detect Silence",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2QlgNd0pJuGHckg0",
+          "name": "NCA Toolkit account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "httpMethod": "POST",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1888,
+        1760
+      ],
+      "id": "8b99cb1e-fbe3-4887-b1b9-0a8e98c60982",
+      "name": "Wait for Webhook",
+      "webhookId": "332ca6cd-787f-4034-b7ed-aafff4451e77"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://no-code-architects-toolkit-1097740561397.us-central1.run.app/v1/video/cut",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  (() => {\n    return JSON.stringify({\n      \"video_url\": $(\"Editing Trigger\").first().json.fields.Footage.replace(\"www.dropbox.com\", \"dl.dropboxusercontent.com\").replace(\"dl=0\", \"dl=1\"),\n      \n      \"webhook_url\": $execution.resumeUrl,\n      \n      \"cuts\": $json.response.map(item => ({\n          \"start\": item.start,\n          \"end\": item.end\n      }))\n    });\n  })()\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1632,
+        1760
+      ],
+      "id": "2d660e06-b4db-4a82-b437-a8e6e3de205e",
+      "name": "Smart Cut",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2QlgNd0pJuGHckg0",
+          "name": "NCA Toolkit account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://no-code-architects-toolkit-1097740561397.us-central1.run.app/v1/media/transcribe",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"media_url\": \"{{ $(\"Editing Trigger\").first().json.fields.Footage.replace(\"www.dropbox.com\", \"dl.dropboxusercontent.com\").replace(\"dl=0\", \"dl=1\") }}\",\n  \"task\": \"transcribe\",\n  \"include_text\": false,\n  \"include_srt\": true,\n  \"response_type\": \"direct\",\n  \"language\": \"en\",\n  \"words_per_line\": 4\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        816,
+        1760
+      ],
+      "id": "4eeef855-057a-4add-8d01-a0232f82460c",
+      "name": "Transcribe Footage",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2QlgNd0pJuGHckg0",
+          "name": "NCA Toolkit account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5.1"
+        },
+        "builtInTools": {
+          "webSearch": {
+            "searchContextSize": "medium"
+          }
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        912,
+        1968
+      ],
+      "id": "2daed15f-46f7-46fa-ac1f-1467bb6ec82e",
+      "name": "5.1",
+      "credentials": {
+        "openAiApi": {
+          "id": "U9sRRNArK5XGzbCv",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. GET BOTH \"TRASH LISTS\"\nconst silenceCuts = $('Detect Silence').item.json.response; // List A: Silences\nconst aiCuts = JSON.parse($input.first().json.output);      // List B: Bad Takes\n\n// Helper: Convert \"00:00:00.000\" to Seconds\nfunction timeToSeconds(timeStr) {\n    if (!timeStr) return 0;\n    const [h, m, s] = timeStr.replace(',', '.').split(':');\n    return (parseFloat(h) * 3600) + (parseFloat(m) * 60) + parseFloat(s);\n}\n\n// Helper: Convert Seconds back to Timestamp\nfunction secondsToTime(totalSeconds) {\n    const h = Math.floor(totalSeconds / 3600);\n    const m = Math.floor((totalSeconds % 3600) / 60);\n    const s = (totalSeconds % 60).toFixed(3);\n    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(6, '0')}`;\n}\n\n// 2. COMBINE & SORT\n// We convert everything to seconds for easy math\nlet allCuts = [\n    ...silenceCuts.map(c => ({ start: timeToSeconds(c.start), end: timeToSeconds(c.end) })),\n    ...aiCuts.map(c => ({ start: timeToSeconds(c.start), end: timeToSeconds(c.end) }))\n];\n\n// Sort by start time (Crucial for merging)\nallCuts.sort((a, b) => a.start - b.start);\n\n// 3. MERGE OVERLAPS\n// Example: If Silence is 0-5s and AI says cut 4-6s, we simply cut 0-6s.\nconst mergedCuts = [];\nif (allCuts.length > 0) {\n    let current = allCuts[0];\n\n    for (let i = 1; i < allCuts.length; i++) {\n        const next = allCuts[i];\n\n        if (next.start < current.end) {\n            // Overlap detected! Extend the current cut if needed.\n            current.end = Math.max(current.end, next.end);\n        } else {\n            // No overlap. Push current and move to next.\n            mergedCuts.push(current);\n            current = next;\n        }\n    }\n    mergedCuts.push(current);\n}\n\n// 4. OUTPUT FINAL JSON\nreturn {\n    \"response\": mergedCuts.map(c => ({\n        \"start\": secondsToTime(c.start),\n        \"end\": secondsToTime(c.end)\n    }))\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1392,
+        1760
+      ],
+      "id": "3ce4bd27-dfe8-4151-b996-278a5fdf2b7f",
+      "name": "Trash Union"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=SRT Transcript: {{ $json.response.srt }}",
+        "options": {
+          "systemMessage": "=# ROLE\nYou are a Quality Control Log. Your job is to identify \"Rejected Segments\" in a video srt transcript.\n\n## TASK\nAnalyze the transcript and identify the start/end timestamps of:\n1.  Filler Words: (um, uh, ah, like, or anything that doesn't add any meaning) IF they are isolated/useless.\n2.  False Starts: Repeated phrases where the speaker corrects themselves (e.g., \"I went to... I went to the store\" -> Reject \"I went to...\").\n3.  Mistakes: Any obvious verbal stumbles.\n\n### OUTPUT\nOutput ONLY a JSON array of the \"Bad Segments\" that should be CUT OUT.\nDo not calculate the final video. Just list the mistakes.\n\nExample:\n[\n  {\"start\": \"00:00:11.652\", \"end\": \"00:00:12.500\", \"reason\": \"False start\"},\n  {\"start\": \"00:00:51.952\", \"end\": \"00:00:53.000\", \"reason\": \"Stutter\"}\n]"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1040,
+        1760
+      ],
+      "id": "9495d64d-cdd3-4cff-866b-ed3def128279",
+      "name": "Detect Mistake"
+    },
+    {
+      "parameters": {
+        "content": "# Cut Silences, Filler Words, and Repeated Mistakes",
+        "height": 496,
+        "width": 1536,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        512,
+        1584
+      ],
+      "typeVersion": 1,
+      "id": "8c32a546-2cda-4df0-bc0e-08ca31c8ef65",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "httpMethod": "POST",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2736,
+        1760
+      ],
+      "id": "411709f2-1684-445b-9d41-bf06bbeaed6b",
+      "name": "Webhook Wait",
+      "webhookId": "7d91d4f9-29f6-4764-a79c-73e338a11687"
+    },
+    {
+      "parameters": {
+        "content": "# Add Tittle, Subtitles, and Backgound Music",
+        "height": 496,
+        "width": 992
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2144,
+        1584
+      ],
+      "typeVersion": 1,
+      "id": "8540689f-63e7-4ce1-a839-168ab3d2866a",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://no-code-architects-toolkit-1097740561397.us-central1.run.app/v1/video/caption",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"video_url\": \"{{ $json.body.response }}\",\n  \"settings\": {\n    \"line_color\": \"#FFFFFF\",\n    \"word_color\": \"#FF0000\",\n    \"all_caps\": false,\n    \"max_words_per_line\": 3,\n    \"font_size\": 60,\n    \"bold\": false,\n    \"italic\": false,\n    \"underline\": false,\n    \"strikeout\": false,\n    \"outline_width\": 3,\n    \"shadow_offset\": 4,\n    \"style\": \"highlight\",\n    \"font_family\": \"The Bold Font\",\n    \"position\": \"bottom_center\"\n  },\n  \"id\": \"job_caption\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2256,
+        1760
+      ],
+      "id": "0f959ffd-1f8c-4b82-8bae-b69e1e33a381",
+      "name": "Add Caption",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2QlgNd0pJuGHckg0",
+          "name": "NCA Toolkit account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://no-code-architects-toolkit-1097740561397.us-central1.run.app/v1/ffmpeg/compose",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  (() => {\n    // 1. HELPER: Fix URLs\n    function getDirectUrl(url) {\n      if (!url) return '';\n      if (url.includes('dropbox.com')) return url.replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace(/(\\?|&)dl=\\d/, '') + '?dl=1';\n      if (url.includes('drive.google.com') && url.includes('/d/')) {\n         const match = url.match(/\\/d\\/([a-zA-Z0-9_-]+)/);\n         if (match && match[1]) return `https://drive.google.com/uc?export=download&id=${match[1]}`;\n      }\n      return url;\n    }\n\n    // 2. GATHER ASSETS\n    // Safely get the video link from the Add Caption node\n    const captionNode = $('Add Caption').first();\n    const rawVideoUrl = captionNode.json.body ? captionNode.json.body.response : captionNode.json.response;\n    const videoUrl = getDirectUrl(rawVideoUrl);\n    \n    const musicUrl = getDirectUrl($('Editing Trigger').first().json.fields.Music);\n    \n    // Clean Title\n    const rawTitle = $('Editing Trigger').first().json.fields.Title || \"WATCH UNTIL THE END\";\n    const cleanTitle = rawTitle\n      .replace(/\\\\n/g, '\\n')       // Allow manual \"\\n\"\n      .replace(/'/g, \"\\u2019\")     // Smart quote (Safe for FFmpeg)\n      .replace(/:/g, \"\\\\:\")        // Escape colons\n      .replace(/%/g, \"\\\\\\\\%\")      // Escape percents\n      .replace(/\\\\/g, '\\\\\\\\')      // Escape backslashes\n      // Auto-insert line breaks every ~20 chars\n      .replace(/(?![^\\n]{1,20}$)([^\\n]{1,20})\\s/g, '$1\\n'); \n\n    // 3. GENERATE FFMPEG FILTER\n    const filterComplex = [\n      // Step A: Draw Title (First 3s, Center, Red, Big)\n      `[0:v]drawtext=text='${cleanTitle}':font='The Bold Font':fontcolor=red:fontsize=90:x=(w-text_w)/2:y=(h-text_h)/2:enable='between(t,0,3)':shadowcolor=black:shadowx=5:shadowy=5[v_out]`,\n\n      // Step B: Prepare Music (Volume 10%)\n      `[1:a]volume=0.1[bgm]`,\n      \n      // Step C: Mix Audio\n      `[0:a][bgm]amix=inputs=2:duration=first[a_out]`\n    ].join(';');\n\n    // 4. RETURN OBJECT (Do NOT use JSON.stringify here)\n    return {\n      \"id\": \"job_\" + $execution.id,\n      \"webhook_url\": $execution.resumeUrl,\n      \n      \"inputs\": [\n        { \"file_url\": videoUrl }, // [0]\n        { \"file_url\": musicUrl }  // [1]\n      ],\n\n      \"global_options\": [\n        { \"option\": \"-y\" }\n      ],\n\n      \"outputs\": [\n        {\n          \"options\": [\n            { \"option\": \"-filter_complex\", \"argument\": filterComplex },\n            { \"option\": \"-map\", \"argument\": \"[v_out]\" },\n            { \"option\": \"-map\", \"argument\": \"[a_out]\" },\n            { \"option\": \"-c:v\", \"argument\": \"libx264\" },\n            { \"option\": \"-preset\", \"argument\": \"fast\" },\n            { \"option\": \"-c:a\", \"argument\": \"aac\" },\n            { \"option\": \"-shortest\", \"argument\": null }\n          ]\n        }\n      ]\n    };\n  })()\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2496,
+        1760
+      ],
+      "id": "19d1dc1d-f299-4e7c-90ad-77bfcce24f81",
+      "name": "Add Title + BM",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2QlgNd0pJuGHckg0",
+          "name": "NCA Toolkit account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "authentication": "airtableTokenApi",
+        "baseId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "appdBaFwp8NsgZd4t"
+        },
+        "tableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "tbl7QsQQ3ak3qRrFw"
+        },
+        "triggerField": "Last Modified",
+        "additionalFields": {
+          "formula": "{Status} = \"Todo\""
+        }
+      },
+      "type": "n8n-nodes-base.airtableTrigger",
+      "typeVersion": 1,
+      "position": [
+        96,
+        1760
+      ],
+      "id": "d5ec51a9-3cbe-4357-9f6c-bf7705f89611",
+      "name": "Editing Trigger",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "X8jeEyY5l3ko8fbk",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorId": {
+          "__rl": true,
+          "value": "xMc5Ga1oCONPmWJIa",
+          "mode": "list",
+          "cachedResultName": "Instagram Reel Scraper (apify/instagram-reel-scraper)",
+          "cachedResultUrl": "https://console.apify.com/actors/xMc5Ga1oCONPmWJIa/input"
+        },
+        "customBody": "={\n    \"includeSharesCount\": false,\n    \"resultsLimit\": 30,\n    \"skipPinnedPosts\": false,\n    \"username\": [\"{{ $json.fields.Username }}\"]\n}",
+        "timeout": {},
+        "authentication": "apifyOAuth2Api"
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        352,
+        128
+      ],
+      "id": "408e6aa4-a4b8-4d35-9062-ccac64adf7a3",
+      "name": "Scrape IG Reels",
+      "credentials": {
+        "apifyOAuth2Api": {
+          "id": "eCkXXK9ATDAhteVr",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "2e301555-03ab-4cf8-8777-46515f1812e7",
+              "leftValue": "={{ $json.videoPlayCount }}",
+              "rightValue": 100000,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            },
+            {
+              "id": "d8976df4-f84b-4ae0-9f67-dbc0e3c57984",
+              "leftValue": "={{ $json.audioUrl }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        592,
+        128
+      ],
+      "id": "5d1cb151-5ad9-4ae6-89eb-1d59dc8feaf9",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        1328,
+        128
+      ],
+      "id": "db62395c-19e1-4464-b61d-a81c2a5b5e23",
+      "name": "Transcribe Audio",
+      "credentials": {
+        "openAiApi": {
+          "id": "U9sRRNArK5XGzbCv",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        848,
+        1056
+      ],
+      "id": "8355bcd5-d750-48bc-9b13-ebc7a306bdb5",
+      "name": "4o",
+      "credentials": {
+        "openAiApi": {
+          "id": "U9sRRNArK5XGzbCv",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.audioUrl }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1056,
+        128
+      ],
+      "id": "eb47bc8a-138e-4197-a737-4c63314dff45",
+      "name": "Download Audio"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appdBaFwp8NsgZd4t",
+          "mode": "list",
+          "cachedResultName": "Short Form Video Automation",
+          "cachedResultUrl": "https://airtable.com/appdBaFwp8NsgZd4t"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl7QsQQ3ak3qRrFw",
+          "mode": "list",
+          "cachedResultName": "Edit",
+          "cachedResultUrl": "https://airtable.com/appdBaFwp8NsgZd4t/tbl7QsQQ3ak3qRrFw"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Done",
+            "id": "={{ $('Editing Trigger').first().json.id }}",
+            "Video": "={{ $json.body.response[0].file_url }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Footage",
+              "displayName": "Footage",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Music",
+              "displayName": "Music",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Video",
+              "displayName": "Video",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Todo",
+                  "value": "Todo"
+                },
+                {
+                  "name": "Done",
+                  "value": "Done"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Last Modified",
+              "displayName": "Last Modified",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        2960,
+        1760
+      ],
+      "id": "b6c3e7bb-7232-4c18-9bca-fd61a7f90992",
+      "name": "Update Record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "X8jeEyY5l3ko8fbk",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appdBaFwp8NsgZd4t",
+          "mode": "list",
+          "cachedResultName": "Short Form Video Automation",
+          "cachedResultUrl": "https://airtable.com/appdBaFwp8NsgZd4t"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblJglltF4FSCZat9",
+          "mode": "list",
+          "cachedResultName": "Script",
+          "cachedResultUrl": "https://airtable.com/appdBaFwp8NsgZd4t/tblJglltF4FSCZat9"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Done",
+            "Script": "={{ $('Scripting Agent').item.json.output }}",
+            "Caption": "={{ $('Caption Agent').item.json.output }}",
+            "id": "={{ $('Scripting Trigger').item.json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Topic",
+              "displayName": "Topic",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Video Link",
+              "displayName": "Video Link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Views",
+              "displayName": "Views",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Transcript",
+              "displayName": "Transcript",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Analysis",
+              "displayName": "Analysis",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Template",
+              "displayName": "Template",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Script",
+              "displayName": "Script",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Caption",
+              "displayName": "Caption",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Todo",
+                  "value": "Todo"
+                },
+                {
+                  "name": "Done",
+                  "value": "Done"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Last Modified",
+              "displayName": "Last Modified",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1360,
+        848
+      ],
+      "id": "d5eb51fa-73df-4e42-9f60-38f2136f29d6",
+      "name": "Update Record(s)",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "X8jeEyY5l3ko8fbk",
+          "name": "Airtable account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Sort by Views": {
+      "main": [
+        [
+          {
+            "node": "Download Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT 5.1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Scripting Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Records": {
+      "main": [
+        []
+      ]
+    },
+    "GPT 5 mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Template Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Analysis Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scripting Agent": {
+      "main": [
+        [
+          {
+            "node": "Caption Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Caption Agent": {
+      "main": [
+        [
+          {
+            "node": "Update Record(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Template Agent": {
+      "main": [
+        [
+          {
+            "node": "Create Records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scripting Trigger": {
+      "main": [
+        [
+          {
+            "node": "Scripting Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analysis Agent": {
+      "main": [
+        [
+          {
+            "node": "Template Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research Trigger": {
+      "main": [
+        [
+          {
+            "node": "Scrape IG Reels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Detect Silence": {
+      "main": [
+        [
+          {
+            "node": "Transcribe Footage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Webhook": {
+      "main": [
+        [
+          {
+            "node": "Add Caption",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Smart Cut": {
+      "main": [
+        [
+          {
+            "node": "Wait for Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribe Footage": {
+      "main": [
+        [
+          {
+            "node": "Detect Mistake",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5.1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Detect Mistake",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trash Union": {
+      "main": [
+        [
+          {
+            "node": "Smart Cut",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Detect Mistake": {
+      "main": [
+        [
+          {
+            "node": "Trash Union",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Wait": {
+      "main": [
+        [
+          {
+            "node": "Update Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Caption": {
+      "main": [
+        [
+          {
+            "node": "Add Title + BM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Title + BM": {
+      "main": [
+        [
+          {
+            "node": "Webhook Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Editing Trigger": {
+      "main": [
+        [
+          {
+            "node": "Detect Silence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape IG Reels": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Sort by Views",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribe Audio": {
+      "main": [
+        [
+          {
+            "node": "Analysis Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4o": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Caption Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Audio": {
+      "main": [
+        [
+          {
+            "node": "Transcribe Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1,
+    "timeSavedPerExecution": 15
+  },
+  "versionId": "ba89a18a-a10a-4b89-b753-a47d3bbdc7b0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "933ab9379c35b2250a34a2816b615e8001c2fb2b4c42502550bc39c725b65a7f"
+  },
+  "id": "PWeUAX9mkXD7wqEPTNQCO",
+  "tags": []
+}
