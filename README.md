@@ -2,8 +2,6 @@
 
 > AI-powered viral video workflow: Research → Script → Edit, automated in under 6 minutes.
 
-![EasyContent Dashboard](screenshots/02-dashboard.png)
-
 ## Overview
 
 EasyContent automates the complete viral video creation process. What traditionally takes 5-6 hours (research, scripting, editing) now takes approximately 6 minutes through AI-powered automation.
@@ -17,7 +15,7 @@ EasyContent automates the complete viral video creation process. What traditiona
 
 ## Quick Links
 
-- **Live Demo**: [Landing Page](https://tinyurl.com/easycontent-rocketnew)
+- **Live Demo**: [Landing Page](https://tinyurl.com/easycontent-landingpage)
 - **Try It**: [Airtable Interface](https://tinyurl.com/airtable-interfaces)
 - **Demo Video**: [Watch Demo](YOUR_VIDEO_URL)
 
